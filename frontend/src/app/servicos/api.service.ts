@@ -8,15 +8,15 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  async consultarApi<R = any, P = any>(
-    metodo: 'POST' | 'GET',
-    url: string,
-    dados?: P
-  ) {
+  async consultarApi<R = any, P = any>(metodo: 'POST' | 'GET', url: string, dados?: P): Promise<R> {
     if (metodo === 'GET') {
-      return await firstValueFrom(this.http.get(`${this.URL}/${url}`));
+      const req$ = this.http.get(`${this.URL}/${url}`, { withCredentials: true });
+      return (await firstValueFrom(req$)) as any;
     } else if (metodo === 'POST') {
-      return await firstValueFrom(this.http.post(`${this.URL}/${url}`, dados));
+      const req$ = this.http.post(`${this.URL}/${url}`, dados, {
+        withCredentials: true
+      });
+      return (await firstValueFrom(req$)) as any;
     } else {
       throw new Error(`Método não implementado: ${metodo}`);
     }

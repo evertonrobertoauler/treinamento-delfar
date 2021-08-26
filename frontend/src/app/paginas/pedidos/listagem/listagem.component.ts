@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ApiService, UteisService } from '../../../servicos';
 
 @Component({
   selector: 'app-listagem',
   templateUrl: './listagem.component.html',
-  styleUrls: ['./listagem.component.scss']
+  styleUrls: ['./listagem.component.scss'],
 })
-export class ListagemComponent implements OnInit {
+export class ListagemComponent {
+  private pedidos$ = this.api.consultarApi<any[]>('GET', 'pedidos');
 
-  constructor() { }
+  dados$ = this.uteis.combineLatestObj({
+    pedidos: this.pedidos$,
+  });
 
-  ngOnInit(): void {
-  }
-
+  constructor(private api: ApiService, private uteis: UteisService) {}
 }

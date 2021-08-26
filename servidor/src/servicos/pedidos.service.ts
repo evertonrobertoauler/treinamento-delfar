@@ -20,10 +20,10 @@ export class PedidosService {
            GROUP BY 1
         )
 
-        SELECT pe.*, wip.itens
-          FROM pedido                  pe 
-          JOIN with_itens_pedidos_json wip ON wip."pedidoId" = pe.id
-         ORDER BY pe.id 
+      SELECT pe.*, wip.itens
+        FROM pedido                  pe 
+        JOIN with_itens_pedidos_json wip ON wip."pedidoId" = pe.id
+       ORDER BY pe.id 
     `;
 
     return await this.bd.executarConsulta(sql);

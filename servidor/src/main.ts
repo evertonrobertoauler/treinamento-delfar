@@ -14,7 +14,7 @@ async function bootstrap() {
     }),
   );
 
-  app.enableCors();
+  app.enableCors({ origin: 'http://localhost:4200', credentials: true });
 
   await app.listen(3000);
 }

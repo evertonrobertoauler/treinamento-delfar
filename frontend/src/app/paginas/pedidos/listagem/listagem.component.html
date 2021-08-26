@@ -1,1 +1,10 @@
-<p>listagem works!</p>
+<div *ngIf="(dados$ | async) as d">
+  <div class="listagem-pedidos">
+    <div *ngFor="let pedido of d.pedidos" class="item">
+      {{ pedido.id }} - {{ pedido.cliente }} - {{ pedido.valor }}
+      <div *ngFor="let item of pedido.itens" class="item">
+        - {{ item.nome }} - {{ item.quantidade }} - {{ item.valor }} - {{ item.total }}
+      </div>
+    </div>
+  </div>
+</div>
