@@ -1,4 +1,6 @@
-import { Body, Controller, Get, Post, Session } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Session, UseGuards } from '@nestjs/common';
+import { AutenticacaoGuard } from 'src/guardas';
 import { UsuariosService } from 'src/servicos';
 
 @Controller('')
@@ -19,12 +21,9 @@ export class AutenticacaoController {
   }
 
   @Get('logout')
+  @UseGuards(AutenticacaoGuard)
   async logout(@Session() session: Record<string, any>) {
-    if (session.usuario) {
-      session.usuario = null;
-      return { resultado: true };
-    } else {
-      return { resultado: false };
-    }
+    session.usuario = null;
+    return { resultado: true };
   }
 }

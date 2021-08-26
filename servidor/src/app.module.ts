@@ -1,11 +1,13 @@
 import { Module, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
+
 import { SERVICOS, BancoDadosService, UsuariosService } from './servicos';
 import { CONTROLLERS } from './controllers';
+import { GUARDAS } from './guardas';
 
 @Module({
   imports: [],
   controllers: [...CONTROLLERS],
-  providers: [...SERVICOS],
+  providers: [...SERVICOS, ...GUARDAS],
 })
 export class AppModule implements OnModuleInit, OnModuleDestroy {
   constructor(

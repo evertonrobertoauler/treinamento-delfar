@@ -10,7 +10,7 @@ import { ApiService } from '../../servicos';
 })
 export class LoginComponent {
   formulario = this.formBuilder.group({
-    usuario: [null, [Validators.required, Validators.email]],
+    usuario: [null, [Validators.required]],
     senha: [null, [Validators.required, Validators.minLength(8)]],
   });
 

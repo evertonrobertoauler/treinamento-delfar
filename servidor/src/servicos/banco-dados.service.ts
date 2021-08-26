@@ -22,6 +22,10 @@ export class BancoDadosService {
     return this.conn.getRepository(classe) as Repository<T>;
   }
 
+  async executarConsulta<T>(sql: string, parametros?: any[]) {
+    return (await this.conn.query(sql, parametros)) as T;
+  }
+
   async desconectarBancoDados() {
     if (this.conn && this.conn.isConnected) {
       await this.conn.close();
