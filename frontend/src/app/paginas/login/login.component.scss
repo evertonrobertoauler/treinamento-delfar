@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 1024px;
+  max-width: 100%;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}

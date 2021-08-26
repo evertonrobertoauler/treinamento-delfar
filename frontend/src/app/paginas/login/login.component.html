@@ -1,0 +1,13 @@
+<form [formGroup]="formulario" appFormulario (formSubmit)="login()">
+  <div class="campo">
+    <label>Usuário</label>
+    <input type="text" formControlName="usuario" appCampoFormulario>
+  </div>
+  <div class="campo">
+    <label>Senha</label>
+    <input type="password" formControlName="senha" appCampoFormulario>
+  </div>
+  <div>
+    <button type="submit">Enviar</button>
+  </div>
+</form>

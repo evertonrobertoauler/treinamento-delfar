@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+.campo-formulario {
+  border: 2px solid #f04141;
+  border-radius: 4px;
+  color: #f04141;
+}
+
+.campo-formulario-erro {
+  color: #f04141;
+  width: 100%;
+  text-align: right;
+  font-size: 12px;
+  display: none;
+  padding: 2px 0;
+}
