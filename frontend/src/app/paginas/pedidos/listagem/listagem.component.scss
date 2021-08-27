@@ -1,0 +1,12 @@
+.listagem-pedidos {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  padding: 8px;
+  margin: 2px;
+  color: black;
+  border: solid thin black;
+  text-decoration: none;
+}

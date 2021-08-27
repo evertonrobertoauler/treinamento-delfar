@@ -4,10 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DIRETIVAS } from './diretivas';
+import { COMPONENTES } from './componentes';
 
 @NgModule({
-  declarations: [...DIRETIVAS],
+  declarations: [...DIRETIVAS, ...COMPONENTES],
   imports: [CommonModule, HttpClientModule, ReactiveFormsModule],
-  exports: [HttpClientModule, ReactiveFormsModule, ...DIRETIVAS],
+  exports: [HttpClientModule, ReactiveFormsModule, ...DIRETIVAS, ...COMPONENTES]
 })
 export class ComunModule {}

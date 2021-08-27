@@ -1,0 +1,15 @@
+<form [formGroup]="formulario" appFormulario (formSubmit)="salvar()">
+  <div class="campo">
+    <label>Cliente</label>
+    <input type="text" formControlName="cliente" appCampoFormulario>
+  </div>
+  <div class="campo">
+    <label>Valor</label>
+    <app-campo-numerico tipo="valor" formControlName="valor" appCampoFormulario></app-campo-numerico>
+  </div>
+  <div>
+    <button type="button" routerLink="/">Voltar</button>
+    <button type="button" (click)="excluir()">Excluir</button>
+    <button type="submit">Enviar</button>
+  </div>
+</form>

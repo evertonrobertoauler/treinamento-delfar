@@ -1,10 +1,11 @@
 <div *ngIf="(dados$ | async) as d">
   <div class="listagem-pedidos">
-    <div *ngFor="let pedido of d.pedidos" class="item">
+    <a *ngFor="let pedido of d.pedidos" class="item" [routerLink]="[pedido.id]">
       {{ pedido.id }} - {{ pedido.cliente }} - {{ pedido.valor }}
       <div *ngFor="let item of pedido.itens" class="item">
         - {{ item.nome }} - {{ item.quantidade }} - {{ item.valor }} - {{ item.total }}
       </div>
-    </div>
+    </a>
   </div>
+  <button type="button" routerLink="/adicionar">Novo Pedido</button>
 </div>

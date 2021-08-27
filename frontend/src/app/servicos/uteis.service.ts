@@ -4,6 +4,9 @@ import { ObservedValueOf, timer } from 'rxjs';
 import { debounceTime, delayWhen } from 'rxjs/operators';
 import { map, retryWhen, shareReplay, tap } from 'rxjs/operators';
 import { keys, values, zipObject } from 'lodash-es';
+import * as VMasker from 'vanilla-masker';
+
+import { TIPO_VALOR, PRECISAO_VALOR } from '@app/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +41,31 @@ export class UteisService {
     return merge(from([{}]), obj$)
       .pipe(debounceTime(10))
       .pipe(tap(() => this.appRef.tick())) as Retorno;
+  }
+
+  formatarValor(
+    valor: number | string,
+    tipo: TIPO_VALOR,
+    extra?: { prefixo?: string; sufixo?: string }
+  ) {
+    const precisao = PRECISAO_VALOR[tipo];
+
+    const str =
+      typeof valor === 'number' ? valor.toFixed(precisao || 0) : valor ? valor + '' : null;
+
+    const negativo = str && str[0] === '-' ? '-' : '';
+    const config = { unit: '', precision: precisao || 0 };
+    const retorno = str ? negativo + VMasker.toMoney(str.replace(/^0+/, ''), config) : '';
+    const vRetorno = precisao !== null ? retorno : retorno.replace(/\.+/gi, '');
+
+    return vRetorno && extra ? (extra.prefixo || '') + vRetorno + (extra.sufixo || '') : vRetorno;
+  }
+
+  formatarValorSys(valor: number | string) {
+    if (typeof valor === 'number') {
+      return valor;
+    } else {
+      return valor ? parseFloat((valor + '').replace(/\./gi, '').replace(',', '.')) : null;
+    }
   }
 }

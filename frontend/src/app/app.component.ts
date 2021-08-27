@@ -13,11 +13,19 @@ import { ApiService } from './servicos';
 export class AppComponent {
   logado$ = defer(() => this.api.consultarApi('GET', 'logado').catch(() => null))
     .pipe(switchMap(() => this.api.logado$))
-    .pipe(tap(logado => this.router.navigateByUrl(logado ? '/' : '/login')));
+    .pipe(tap(logado => this.ajustarNavegacao(logado)));
 
   constructor(private api: ApiService, private router: Router) {}
 
   async sair() {
     await this.api.consultarApi('GET', 'logout');
+  }
+
+  private async ajustarNavegacao(logado: boolean) {
+    if (logado && this.router.url === '/login') {
+      await this.router.navigateByUrl('/');
+    } else if (!logado && this.router.url !== '/login') {
+      await this.router.navigateByUrl('/login');
+    }
   }
 }

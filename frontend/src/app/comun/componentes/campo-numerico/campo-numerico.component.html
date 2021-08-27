@@ -1,0 +1,6 @@
+<ng-container *ngIf="(mudanca$ | async)"></ng-container>
+<input #input type="tel" [disabled]="desabilitado" [placeholder]="placeholder" (load)="setarValor()"
+  (change)="atualizar$.next(null)" (blur)="atualizar$.next(null)" (keyup)="atualizar$.next(null)">
+<button *ngIf="valor !== null" type="button" (click)="limparCampo()">
+  Limpar
+</button>
