@@ -1,4 +1,4 @@
-<form [formGroup]="formulario" appFormulario (formSubmit)="salvar()">
+<form *ngIf="(dados$ | async) as d" [formGroup]="formulario" appFormulario (formSubmit)="salvar()">
   <div class="campo">
     <label>Cliente</label>
     <input type="text" formControlName="cliente" appCampoFormulario>
@@ -9,7 +9,7 @@
   </div>
   <div>
     <button type="button" routerLink="/">Voltar</button>
-    <button type="button" (click)="excluir()">Excluir</button>
+    <button *ngIf="d.valorAtual?.id" type="button" (click)="excluir()">Excluir</button>
     <button type="submit">Enviar</button>
   </div>
 </form>

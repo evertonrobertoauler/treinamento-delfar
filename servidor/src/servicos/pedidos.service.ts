@@ -18,14 +18,19 @@ export class PedidosService {
           SELECT w."pedidoId", JSON_AGG(ROW_TO_JSON(w)) AS itens
             FROM with_itens_pedidos w
            GROUP BY 1
+        ),
+        with_pedidos AS (
+          SELECT pe.*, wip.itens
+            FROM pedido                  pe 
+            JOIN with_itens_pedidos_json wip ON wip."pedidoId" = pe.id
+           ORDER BY pe.id
         )
 
-      SELECT pe.*, wip.itens
-        FROM pedido                  pe 
-        JOIN with_itens_pedidos_json wip ON wip."pedidoId" = pe.id
-       ORDER BY pe.id 
+       SELECT JSON_AGG(ROW_TO_JSON(w)) AS registros
+         FROM with_pedidos w
     `;
 
-    return await this.bd.executarConsulta(sql);
+    const resultado = await this.bd.executarConsulta(sql);
+    return resultado?.length ? resultado[0]?.registros : [];
   }
 }

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { tap } from 'rxjs/operators';
 
-import { ApiService } from '../../../servicos';
+import { PedidosService, UteisService } from '../../../servicos';
 
 @Component({
   selector: 'app-formulario',
@@ -17,13 +18,23 @@ export class FormularioComponent {
     valor: [null, Validators.required]
   });
 
-  constructor(private formBuilder: FormBuilder, private api: ApiService) {}
+  private valorAtual$ = this.pedidos.pedido$.pipe(tap(p => p && this.formulario.patchValue(p)));
+
+  dados$ = this.uteis.combineLatestObj({
+    valorAtual: this.valorAtual$
+  });
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private uteis: UteisService,
+    private pedidos: PedidosService
+  ) {}
 
   async salvar() {
-    await this.api.consultarApi('POST', 'salvar', this.formulario.getRawValue());
+    await this.pedidos.salvarPedido(this.formulario.getRawValue());
   }
 
   async excluir() {
-    await this.api.consultarApi('POST', 'excluir', { id: this.formulario.value.id });
+    await this.pedidos.excluirPedido(this.formulario.value.id);
   }
 }

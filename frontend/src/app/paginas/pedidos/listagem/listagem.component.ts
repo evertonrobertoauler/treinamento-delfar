@@ -1,17 +1,25 @@
 import { Component } from '@angular/core';
-import { ApiService, UteisService } from '../../../servicos';
+import { Router } from '@angular/router';
+import { PedidosService, UteisService } from '@app/servicos';
 
 @Component({
   selector: 'app-listagem',
   templateUrl: './listagem.component.html',
-  styleUrls: ['./listagem.component.scss'],
+  styleUrls: ['./listagem.component.scss']
 })
 export class ListagemComponent {
-  private pedidos$ = this.api.consultarApi<any[]>('GET', 'pedidos');
-
   dados$ = this.uteis.combineLatestObj({
-    pedidos: this.pedidos$,
+    pedidos: this.pedidos.consultarPedidos()
   });
 
-  constructor(private api: ApiService, private uteis: UteisService) {}
+  constructor(
+    private pedidos: PedidosService,
+    private uteis: UteisService,
+    private router: Router
+  ) {}
+
+  editarPedido(pedido?: any) {
+    this.pedidos.pedido$.next(pedido || null);
+    return this.router.navigateByUrl(pedido ? '/' + pedido.id : '/adicionar');
+  }
 }

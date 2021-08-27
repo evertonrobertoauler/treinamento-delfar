@@ -22,7 +22,7 @@ export class BancoDadosService {
     return this.conn.getRepository(classe) as Repository<T>;
   }
 
-  async executarConsulta<T>(sql: string, parametros?: any[]) {
+  async executarConsulta<T = any>(sql: string, parametros?: any[]) {
     return (await this.conn.query(sql, parametros)) as T;
   }
 
