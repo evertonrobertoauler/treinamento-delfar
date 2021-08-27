@@ -7,6 +7,12 @@ import { UsuariosService } from 'src/servicos';
 export class AutenticacaoController {
   constructor(private usuarios: UsuariosService) {}
 
+  @Get('logado')
+  @UseGuards(AutenticacaoGuard)
+  async verificarSeTaLogado() {
+    return { resultado: true };
+  }
+
   @Post('login')
   async login(@Body() dados, @Session() session: Record<string, any>) {
     const usuario = await this.usuarios.login(dados.usuario, dados.senha);
