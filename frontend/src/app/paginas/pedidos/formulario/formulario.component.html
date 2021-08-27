@@ -3,6 +3,43 @@
     <label>Cliente</label>
     <input type="text" formControlName="cliente" appCampoFormulario>
   </div>
+  <b>Ítens do Pedido</b>
+  <div class="grid-itens" formArrayName="itens" intranetCampoFormulario>
+    <b class="cabecalho">Item</b>
+    <b class="cabecalho">Nome</b>
+    <b class="cabecalho">Quantidade</b>
+    <b class="cabecalho">Valor</b>
+    <b class="cabecalho">Total</b>
+    <b class="cabecalho"></b>
+    <ng-container *ngFor="let gItem of arrItens.controls; let i = index" [formGroupName]="i">
+      <div *ngIf="i > 0" class="separador"></div>
+      <span class="numero">{{ (i + 1) }}</span>
+      <div class="campo">
+        <input type="text" formControlName="nome" appCampoFormulario>
+      </div>
+      <div class="campo">
+        <app-campo-numerico tipo="inteiro" [botaoLimpar]="false" formControlName="quantidade" appCampoFormulario>
+        </app-campo-numerico>
+      </div>
+      <div class="campo">
+        <app-campo-numerico tipo="valor" [botaoLimpar]="false" formControlName="valor" appCampoFormulario>
+        </app-campo-numerico>
+      </div>
+      <div class="campo">
+        <app-campo-numerico tipo="valor" [botaoLimpar]="false" formControlName="total" appCampoFormulario>
+        </app-campo-numerico>
+      </div>
+      <button type="button" (click)="removerItem(i)">
+        Remover
+      </button>
+    </ng-container>
+  </div>
+  <div class="linha botoes">
+    <button type="button" (click)="adicionarItem()">
+      Adicionar Ítem
+    </button>
+  </div>
+
   <div class="campo">
     <label>Valor</label>
     <app-campo-numerico tipo="valor" formControlName="valor" appCampoFormulario></app-campo-numerico>

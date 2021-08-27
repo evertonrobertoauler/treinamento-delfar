@@ -15,3 +15,35 @@ form {
   flex-direction: column;
   padding: 8px 0;
 }
+
+.grid-itens {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 40px calc(100% - 644px) 150px 150px 150px 150px;
+  align-items: center;
+  border: thin solid #bdc3c7;
+  border-radius: 4px;
+  padding: 2px;
+
+  .numero {
+    align-self: center;
+    justify-self: center;
+    grid-row-end: span 2;
+  }
+
+  .separador {
+    grid-column: 1 / span 6;
+    background-color: #bdc3c7;
+    height: 1px;
+    margin: 2px;
+  }
+
+  .cabecalho {
+    text-align: center;
+  }
+
+  .campo {
+    width: 100%;
+    padding: 2px;
+  }
+}

@@ -22,6 +22,7 @@ import { UteisService } from '@app/servicos';
 export class CampoNumericoComponent implements ControlValueAccessor {
   @Input() tipo: TIPO_VALOR;
   @Input() placeholder = '';
+  @Input() botaoLimpar = true;
 
   @ViewChild('input', { static: true }) input: ElementRef<HTMLInputElement>;
 

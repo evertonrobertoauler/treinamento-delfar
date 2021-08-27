@@ -10,15 +10,18 @@ import { PedidosService, UteisService } from '../../../servicos';
   styleUrls: ['./formulario.component.scss']
 })
 export class FormularioComponent {
+  arrItens = this.formBuilder.array([]);
+
   formulario = this.formBuilder.group({
     id: [],
     cliente: [null, Validators.required],
-    // itens: [{id: 2, nome: "Refrigerante", quantidade: 2, valor: 10, pedidoId: 1, total: 20}]
-    itens: this.formBuilder.array([]),
+    itens: this.arrItens,
     valor: [null, Validators.required]
   });
 
-  private valorAtual$ = this.pedidos.pedido$.pipe(tap(p => p && this.formulario.patchValue(p)));
+  private valorAtual$ = this.pedidos.pedido$
+    .pipe(tap(p => (p?.itens || [null]).map(() => this.adicionarItem())))
+    .pipe(tap(p => p && this.formulario.patchValue(p)));
 
   dados$ = this.uteis.combineLatestObj({
     valorAtual: this.valorAtual$
@@ -36,5 +39,21 @@ export class FormularioComponent {
 
   async excluir() {
     await this.pedidos.excluirPedido(this.formulario.value.id);
+  }
+
+  adicionarItem() {
+    const grupoItem = this.formBuilder.group({
+      id: [null, Validators.required],
+      nome: [null, Validators.required],
+      quantidade: [null, Validators.required],
+      valor: [null, Validators.required],
+      total: [null, Validators.required]
+    });
+
+    this.arrItens.push(grupoItem);
+  }
+
+  removerItem(index: number) {
+    this.arrItens.removeAt(index);
   }
 }
