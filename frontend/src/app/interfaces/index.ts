@@ -5,3 +5,9 @@ export const PRECISAO_VALOR: { [tipo in TIPO_VALOR]: number | null } = {
   percentual: 1,
   valor: 2
 };
+
+export interface Opcao {
+  valor: any;
+  label: string;
+  extras?: { [key: string]: any };
+}

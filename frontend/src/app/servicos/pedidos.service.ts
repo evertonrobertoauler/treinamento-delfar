@@ -14,10 +14,10 @@ export class PedidosService {
   }
 
   async salvarPedido(pedido: any) {
-    return await this.api.consultarApi('POST', 'salvar', pedido);
+    return await this.api.consultarApi('POST', 'pedidos/salvar', pedido);
   }
 
   async excluirPedido(id: number) {
-    return await this.api.consultarApi('POST', 'excluir', { id });
+    return await this.api.consultarApi('POST', 'pedidos/excluir', { id });
   }
 }

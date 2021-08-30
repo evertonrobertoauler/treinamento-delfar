@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Pedido } from '../entidades';
+import { ItemPedido, Pedido } from '../entidades';
 import { BancoDadosService } from './banco-dados.service';
 
 @Injectable()
@@ -32,5 +32,53 @@ export class PedidosService {
 
     const resultado = await this.bd.executarConsulta(sql);
     return resultado?.length ? resultado[0]?.registros : [];
+  }
+
+  async salvarPedido(dados: any) {
+    let pedido = new Pedido();
+    pedido.id = dados.id || null;
+    pedido.cliente = dados.cliente;
+    pedido.valor = dados.valor;
+    pedido = await this.bd.obterEntidade(Pedido).save(pedido);
+
+    const idItens = [];
+
+    for (const dadosItem of dados.itens) {
+      const item = new ItemPedido();
+      item.id = dadosItem.id || null;
+      item.pedido = pedido;
+      item.nome = dadosItem.nome;
+      item.quantidade = dadosItem.quantidade;
+      item.valor = dadosItem.valor;
+      idItens.push((await this.bd.obterEntidade(ItemPedido).save(item)).id);
+    }
+
+    const itens = await this.bd
+      .obterEntidade<ItemPedido>(ItemPedido)
+      .createQueryBuilder()
+      .where('"pedidoId" = :pedido', { pedido: pedido.id })
+      .getMany();
+
+    for (const item of itens.filter((i) => !idItens.includes(i.id))) {
+      await this.bd.obterEntidade(ItemPedido).delete(item);
+    }
+
+    return pedido;
+  }
+
+  async excluirPedido(dados: any) {
+    const itens = await this.bd
+      .obterEntidade<ItemPedido>(ItemPedido)
+      .createQueryBuilder()
+      .where('"pedidoId" = :pedido', { pedido: dados.id })
+      .getMany();
+
+    for (const item of itens) {
+      await this.bd.obterEntidade(ItemPedido).delete(item);
+    }
+
+    let pedido = new Pedido();
+    pedido.id = dados.id || null;
+    return await this.bd.obterEntidade(Pedido).delete(pedido);
   }
 }

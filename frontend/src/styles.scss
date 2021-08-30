@@ -13,3 +13,7 @@
   display: none;
   padding: 2px 0;
 }
+
+form [disabled] {
+  cursor: not-allowed;
+}
