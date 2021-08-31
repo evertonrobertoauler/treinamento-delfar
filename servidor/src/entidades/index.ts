@@ -23,7 +23,7 @@ export class Pedido {
 
   @Column('text')
   cliente: string;
-
+  
   @Column({ type: 'numeric', precision: 10, scale: 2 })
   valor: string;
 

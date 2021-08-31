@@ -8,10 +8,34 @@ form {
   flex-direction: column;
   width: 1024px;
   max-width: 100%;
+  background-color: rgb(137, 207, 209);
+  width: 25%;
+  text-align: center;
+  margin-top: 100px;
+}
+
+input {
+  margin-top: 8px;
 }
 
 .campo {
-  display: flex;
   flex-direction: column;
   padding: 8px 0;
+  width: 25px;
+  margin-left: 22%;
+}
+button{
+  background-color: rgb(10, 98, 133);
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 19px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+button:hover {
+  background-color: rgb(40, 133, 170);
 }

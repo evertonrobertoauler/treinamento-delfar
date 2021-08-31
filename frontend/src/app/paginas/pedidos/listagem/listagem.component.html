@@ -1,11 +1,14 @@
-<div *ngIf="(dados$ | async) as d">
-  <div class="listagem-pedidos">
+<div *ngIf="(dados$ | async) as d" >
+  <h1 style="text-align:center">Pedidos Pendentes</h1>
+  <div class="listagem-pedidos" >
     <a *ngFor="let pedido of d.pedidos" class="item" (click)="editarPedido(pedido)">
-      {{ pedido.id }} - {{ pedido.cliente }} - {{ pedido.valor }}
+      <b>Pedido Nº: {{ pedido.id }}</b>  <b style="margin-left: 40px;">Cliente: </b> {{ pedido.cliente }} <br><br>
       <div *ngFor="let item of pedido.itens" class="item">
-        - {{ item.nome }} - {{ item.quantidade }} - {{ item.valor }} - {{ item.total }}
+       <b style="margin-left: 25px;"> Item: </b> {{ item.nome }} <b style="margin-left: 5px;">Qtde:</b> {{ item.quantidade }} <br>  
+       <b style="margin-left: 45px;">Valor Un: </b>{{ item.valor }} <b>Valor Total: </b> {{ item.total }} <br><br>
       </div>
+      <b style=" float:right">Total do Pedido: {{ pedido.valor }}</b>
     </a>
   </div>
-  <button type="button" (click)="editarPedido()">Novo Pedido</button>
+  <button type="button" class="button" (click)="editarPedido()">Novo Pedido</button>
 </div>

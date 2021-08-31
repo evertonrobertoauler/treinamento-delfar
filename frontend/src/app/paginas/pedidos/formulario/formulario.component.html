@@ -1,9 +1,11 @@
 <form *ngIf="(dados$ | async) as d" [formGroup]="formulario" appFormulario (formSubmit)="salvar()">
   <div class="campo">
-    <label>Cliente</label>
-    <input type="text" formControlName="cliente" appCampoFormulario>
+      <h2>Dados do Cliente</h2>
+      <label>Cliente</label>
+      <input type="text" formControlName="cliente" appCampoFormulario>
   </div>
-  <b>Ítens do Pedido</b>
+  <br>
+  <b>Ítens do Pedido</b><br>
   <div class="grid-itens" formArrayName="itens">
     <b class="cabecalho">Item</b>
     <b class="cabecalho">Nome</b>
@@ -47,6 +49,6 @@
   <div>
     <button type="button" routerLink="/">Voltar</button>
     <button *ngIf="d.valorAtual?.id" type="button" (click)="excluir()">Excluir</button>
-    <button type="submit">Salvar</button>
+    <button type="submit">Enviar</button>
   </div>
 </form>

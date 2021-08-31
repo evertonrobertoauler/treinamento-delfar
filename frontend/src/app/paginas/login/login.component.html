@@ -1,13 +1,16 @@
 <form [formGroup]="formulario" appFormulario (formSubmit)="login()">
+  <h3>Seja Bem Vindo</h3>
+  <label style="margin-top: -14px;">Insira as suas credenciais abaixo para<br> 
+    acessar o seu Sistema</label><br><br>
   <div class="campo">
-    <label>Usuário</label>
+    <b>Usuário</b>
     <input type="text" formControlName="usuario" appCampoFormulario>
   </div>
   <div class="campo">
-    <label>Senha</label>
+    <b>Senha</b>
     <input type="password" formControlName="senha" appCampoFormulario>
   </div>
   <div>
-    <button type="submit">Enviar</button>
+    <button type="submit">Entrar</button><br><br>
   </div>
 </form>
