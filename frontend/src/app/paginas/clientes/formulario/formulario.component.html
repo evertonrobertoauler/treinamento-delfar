@@ -1,35 +1,36 @@
 <form *ngIf="(dados$ | async) as d" [formGroup]="formulario" appFormulario (formSubmit)="salvar()">
   <div class="campo">
       <h2>Dados do Cliente</h2>
-      <label>Cliente</label>
-      <input type="text" formControlName="cliente" appCampoFormulario>
+      <label>Nome</label>
+      <input type="text" formControlName="nome" appCampoFormulario>
+      <label>E-mail</label>
+      <input type="text" formControlName="email" appCampoFormulario>
+      <label>Contato</label>
+      <input type="text" formControlName="contato" appCampoFormulario>
   </div>
   <br>
   <b>Ítens do Pedido</b><br>
-  <div class="grid-itens" formArrayName="itens">
-    <b class="cabecalho">Item</b>
-    <b class="cabecalho">Nome</b>
-    <b class="cabecalho">Quantidade</b>
-    <b class="cabecalho">Valor</b>
-    <b class="cabecalho">Total</b>
-    <b class="cabecalho"></b>
-    <ng-container *ngFor="let gItem of arrItens.controls; let i = index" [formGroupName]="i">
+  <div class="grid-itens" formArrayName="enderecos">
+    <b class="cabecalho">Endereço</b>
+    <b class="cabecalho">Cidade</b>
+    <b class="cabecalho">Bairo</b>
+    <b class="cabecalho">Rua</b>
+    <b class="cabecalho">Número</b>
+    <b class="cabecalho">Complemento</b>
+    <ng-container *ngFor="let gEndereco of arrEnderecos.controls; let i = index" [formGroupName]="i">
       <div *ngIf="i > 0" class="separador"></div>
       <span class="numero">{{ (i + 1) }}</span>
       <div class="campo">
-        <input type="text" formControlName="nome" appCampoFormulario>
+        <input type="text" formControlName="cidade" appCampoFormulario>
       </div>
       <div class="campo">
-        <app-campo-numerico tipo="inteiro" [botaoLimpar]="false" formControlName="quantidade" appCampoFormulario>
-        </app-campo-numerico>
+        <input tipo="text" [botaoLimpar]="false" formControlName="bairro" appCampoFormulario>
       </div>
       <div class="campo">
-        <app-campo-numerico tipo="valor" [botaoLimpar]="false" formControlName="valor" appCampoFormulario>
-        </app-campo-numerico>
+        <input tipo="text" [botaoLimpar]="false" formControlName="rua" appCampoFormulario>
       </div>
       <div class="campo">
-        <app-campo-numerico tipo="valor" [botaoLimpar]="false" formControlName="total" appCampoFormulario>
-        </app-campo-numerico>
+        <app-campo-numerico tipo="numero" [botaoLimpar]="false" formControlName="numero" appCampoFormulario>
       </div>
       <button type="button" (click)="removerItem(i)">
         Remover

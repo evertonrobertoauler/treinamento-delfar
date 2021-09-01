@@ -29,12 +29,18 @@ export class Cliente {
 
   @Column({ type: 'numeric', precision: 15})
   contato: string;
+
+  @OneToMany(() => Endereco, (endereco) => endereco.cliente)
+  enderecos: Endereco[];
 }
 
 @Entity()
 export class Endereco {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ManyToOne(() => Cliente, (cliente) => cliente.enderecos, { nullable: false })
+  cliente: Cliente;
 
   @Column('text')
   cidade: string;
