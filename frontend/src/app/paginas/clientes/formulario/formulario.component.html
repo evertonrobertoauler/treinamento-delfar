@@ -24,32 +24,32 @@
         <input type="text" formControlName="cidade" appCampoFormulario>
       </div>
       <div class="campo">
-        <input tipo="text" [botaoLimpar]="false" formControlName="bairro" appCampoFormulario>
+        <input tipo="text" formControlName="bairro" appCampoFormulario>
       </div>
       <div class="campo">
-        <input tipo="text" [botaoLimpar]="false" formControlName="rua" appCampoFormulario>
+        <input tipo="text" formControlName="rua" appCampoFormulario>
       </div>
       <div class="campo">
-        <app-campo-numerico tipo="numero" [botaoLimpar]="false" formControlName="numero" appCampoFormulario>
+        <app-campo-numerico [botaoLimpar]="false" formControlName="numero" appCampoFormulario>
+        </app-campo-numerico>
       </div>
-      <button type="button" (click)="removerItem(i)">
+      <div class="campo">
+        <input tipo="text" formControlName="complemento" appCampoFormulario>
+      </div>
+        <button type="button" (click)="removerEndereco(i)">
         Remover
-      </button>
+        </button>
     </ng-container>
   </div>
   <div class="linha botoes">
-    <button type="button" (click)="adicionarItem()">
-      Adicionar Ítem
+    <button type="button" (click)="adicionarEndereco()">
+      Adicionar Endereço
     </button>
   </div>
 
-  <div class="campo">
-    <label>Valor</label>
-    <app-campo-numerico tipo="valor" formControlName="valor" appCampoFormulario></app-campo-numerico>
-  </div>
   <div>
     <button type="button" routerLink="/clientes">Voltar</button>
-    <button *ngIf="d.valorAtual?.id" type="button" (click)="excluir()">Excluir</button>
+    <button type="button" (click)="excluir()">Excluir</button>
     <button type="submit">Enviar</button>
   </div>
 </form>
