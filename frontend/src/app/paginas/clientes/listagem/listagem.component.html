@@ -1,0 +1,14 @@
+<div *ngIf="(dados$ | async) as d" >
+  <h1 style="text-align:center">Clientes Existentes</h1>
+  <div class="listagem-clientes" >
+    <a *ngFor="let cliente of d.clientes" class="item" (click)="editarCliente(cliente)">
+      <b>Cliente Nº: {{ cliente.id }}</b>  <b style="margin-left: 40px;">Cliente: </b> {{ cliente.cliente }} <br><br>
+      <div *ngFor="let item of cliente.itens" class="item">
+       <b style="margin-left: 25px;"> Item: </b> {{ item.nome }} <b style="margin-left: 5px;">Qtde:</b> {{ item.quantidade }} <br>  
+       <b style="margin-left: 45px;">Valor Un: </b>{{ item.valor }} <b>Valor Total: </b> {{ item.total }} <br><br>
+      </div>
+      <b style=" float:right">Total do Cliente: {{ cliente.valor }}</b>
+    </a>
+  </div>
+  <button type="button" class="button" (click)="editarCliente()">Novo Cliente</button>
+</div>

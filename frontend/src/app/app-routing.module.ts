@@ -8,9 +8,19 @@ const routes: Routes = [
       import('./paginas/login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: '',
+    path: 'pedidos',
     loadChildren: () =>
       import('./paginas/pedidos/pedidos.module').then((m) => m.PedidosModule),
+  },
+  {
+    path: 'clientes',
+    loadChildren: () =>
+      import('./paginas/clientes/clientes.module').then((m) => m.ClientesModule), 
+  },
+  {
+    path: '',
+    redirectTo: '/pedidos',
+    pathMatch: 'full',
   },
 ];
 

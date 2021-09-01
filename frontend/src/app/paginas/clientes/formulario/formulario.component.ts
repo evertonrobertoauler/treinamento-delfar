@@ -44,12 +44,12 @@ export class FormularioComponent {
 
   async salvar() {
     await this.pedidos.salvarPedido(this.formulario.getRawValue());
-    this.router.navigateByUrl('/pedidos');
+    this.router.navigateByUrl('/clientes');
   }
 
   async excluir() {
     await this.pedidos.excluirPedido(this.formulario.value.id);
-    this.router.navigateByUrl('/pedidos');
+    this.router.navigateByUrl('/clientes');
   }
 
   adicionarItem() {

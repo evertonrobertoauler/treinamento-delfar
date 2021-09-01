@@ -17,6 +17,42 @@ export class Usuario {
 }
 
 @Entity()
+export class Cliente {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column('text')
+  nome: string;
+
+  @Column('text')
+  email: string;
+
+  @Column({ type: 'numeric', precision: 15})
+  contato: string;
+}
+
+@Entity()
+export class Endereco {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column('text')
+  cidade: string;
+
+  @Column('text')
+  rua: string;
+
+  @Column('integer')
+  numero: string;
+
+  @Column('text')
+  bairro: string;
+
+  @Column('text')
+  complemento: string;
+}
+
+@Entity()
 export class Pedido {
   @PrimaryGeneratedColumn()
   id: number;
