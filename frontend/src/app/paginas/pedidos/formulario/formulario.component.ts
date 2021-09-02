@@ -21,7 +21,7 @@ export class FormularioComponent {
     valor: [null, Validators.required]
   });
 
-  private valorAtual$ = this.pedidos.pedido$
+  private dadosFormulario$ = this.pedidos.pedido$
     .pipe(tap(p => this.preencherFormulario(p)));
     // .pipe(tap(p => (p?.itens || [null]).map(() => this.adicionarItem())))
     // .pipe(tap(p => p && this.formulario.patchValue(p)))
@@ -32,7 +32,7 @@ export class FormularioComponent {
     .pipe(tap(() => this.atualizarTotais()));
 
   dados$ = this.uteis.combineLatestObj({
-    valorAtual: this.valorAtual$,
+    dadosFormulario: this.dadosFormulario$,
     atualizarTotais: this.atualizarTotais$
   });
 

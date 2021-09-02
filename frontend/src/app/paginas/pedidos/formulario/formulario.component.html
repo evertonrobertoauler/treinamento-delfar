@@ -48,7 +48,7 @@
   </div>
   <div>
     <button type="button" routerLink="/pedidos">Voltar</button>
-    <button *ngIf="d.valorAtual?.id" type="button" (click)="excluir()">Excluir</button>
+    <button *ngIf="d.dadosFormulario?.id" type="button" (click)="excluir()">Excluir</button>
     <button type="submit">Enviar</button>
   </div>
 </form>
