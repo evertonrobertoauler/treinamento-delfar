@@ -10,15 +10,15 @@ import { ClientesService, UteisService } from '../../../servicos';
   styleUrls: ['./formulario.component.scss']
 })
 export class FormularioComponent {
-  dados$ = this.uteis.combineLatestObj({
-    clientes: this.clientes.consultarClientes()
-  });
+  dados$ = null;
 
   arrEnderecos = this.formBuilder.array([]);
 
   formulario = this.formBuilder.group({
     id: [],
-    cliente: [null, Validators.required],
+    nome: [null, Validators.required], 
+    email: [null, Validators.required], 
+    contato: [null, Validators.required], 
     enderecos: this.arrEnderecos,
   });
   
