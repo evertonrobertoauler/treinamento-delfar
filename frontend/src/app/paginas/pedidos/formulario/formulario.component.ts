@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { toPairs } from 'lodash-es';
 import { tap } from 'rxjs/operators';
@@ -22,9 +22,10 @@ export class FormularioComponent {
   });
 
   private valorAtual$ = this.pedidos.pedido$
-    .pipe(tap(p => (p?.itens || [null]).map(() => this.adicionarItem())))
-    .pipe(tap(p => p && this.formulario.patchValue(p)))
-    .pipe(tap(() => this.formulario.get('valor').disable()));
+    .pipe(tap(p => this.preencherFormulario(p)));
+    // .pipe(tap(p => (p?.itens || [null]).map(() => this.adicionarItem())))
+    // .pipe(tap(p => p && this.formulario.patchValue(p)))
+    // .pipe(tap(() => this.formulario.get('valor').disable()));
 
   private atualizarTotais$ = this.uteis
     .mudanca(this.arrItens)
@@ -41,6 +42,22 @@ export class FormularioComponent {
     private uteis: UteisService,
     private pedidos: PedidosService
   ) {}
+
+  private preencherFormulario(pedido: any) {
+    if (pedido) {
+      for (const item of pedido.itens) {
+        this.adicionarItem();
+      }
+
+      // preenche o formulário
+      this.formulario.patchValue(pedido);
+    } else {
+      this.adicionarItem(); 
+    }
+
+    // desabilita o campo valor
+    this.formulario.get('valor').disable()
+  }
 
   async salvar() {
     await this.pedidos.salvarPedido(this.formulario.getRawValue());
