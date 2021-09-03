@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 import { ClientesService, UteisService } from '../../../servicos';
 
@@ -10,18 +11,23 @@ import { ClientesService, UteisService } from '../../../servicos';
   styleUrls: ['./formulario.component.scss']
 })
 export class FormularioComponent {
-  dados$ = null;
-
   arrEnderecos = this.formBuilder.array([]);
 
   formulario = this.formBuilder.group({
     id: [],
-    nome: [null, Validators.required], 
-    email: [null, Validators.required], 
-    contato: [null, Validators.required], 
+    nome: [null, Validators.required],
+    email: [null, Validators.required],
+    contato: [null, Validators.required],
     enderecos: this.arrEnderecos,
   });
-  
+  private dadosFormulario$ = this.clientes.clientes$
+    .pipe(tap(p => (p?.enderecos || [null]).map(() => this.adicionarEndereco())))
+    .pipe(tap(p => p && this.formulario.patchValue(p)))
+
+  dados$ = this.uteis.combineLatestObj({
+    dadosFormulario: this.dadosFormulario$,
+  });
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -55,6 +61,5 @@ export class FormularioComponent {
   removerEndereco(index: number) {
     this.arrEnderecos.removeAt(index);
   }
-
 
 }
