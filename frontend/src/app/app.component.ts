@@ -21,6 +21,14 @@ export class AppComponent {
     await this.api.consultarApi('GET', 'logout');
   }
 
+  async pedidos(){
+    this.router.navigateByUrl('/pedidos');
+  }
+  
+  async clientes(){
+    this.router.navigateByUrl('/clientes');
+  }
+
   private async ajustarNavegacao(logado: boolean) {
     if (logado && this.router.url === '/login') {
       await this.router.navigateByUrl('/');
