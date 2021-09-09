@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { toPairs } from 'lodash-es';
-import { tap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
-import { PedidosService, UteisService } from '../../../servicos';
+import { ClientesService, PedidosService, UteisService } from '../../../servicos';
 
 @Component({
   selector: 'app-formulario',
@@ -17,6 +17,7 @@ export class FormularioComponent {
   formulario = this.formBuilder.group({
     id: [],
     cliente: [null, Validators.required],
+    endereco: [null, Validators.required],
     itens: this.arrItens,
     valor: [null, Validators.required]
   });
@@ -31,16 +32,27 @@ export class FormularioComponent {
     .mudanca(this.arrItens)
     .pipe(tap(() => this.atualizarTotais()));
 
+    private opcoesClientes$ = this.clientes.consultarOpcoesClientes();
+
+
+    private consultarOpcoesEndereco$ = this.uteis
+    .mudanca<number>(this.formulario.get('cliente'), true)
+    .pipe(switchMap(idCliente => this.clientes.consultarOpcoesEnderecoCliente(idCliente)))
+
+
   dados$ = this.uteis.combineLatestObj({
     dadosFormulario: this.dadosFormulario$,
-    atualizarTotais: this.atualizarTotais$
+    atualizarTotais: this.atualizarTotais$,
+    opcoesClientes: this.opcoesClientes$,
+    opcoesEndereco: this.consultarOpcoesEndereco$
   });
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private uteis: UteisService,
-    private pedidos: PedidosService
+    private pedidos: PedidosService,
+    private clientes: ClientesService
   ) {}
 
   private preencherFormulario(pedido: any) {

@@ -2,7 +2,19 @@
   <div class="campo">
       <h2>Dados do Cliente</h2>
       <label>Cliente</label>
-      <input type="text" formControlName="cliente" appCampoFormulario>
+      <select formControlName="cliente" appCampoFormulario>
+        <option value="">Selecione um cliente!</option>
+        <option *ngFor="let opcao of d.opcoesClientes" [value]="opcao.id">
+          {{ opcao.nome }}
+        </option>
+      </select>
+      <label>Endereço</label>
+      <select formControlName="endereco" appCampoFormulario>
+        <option value="">Selecione um endereco!</option>
+        <option *ngFor="let opcao of d.opcoesEndereco" [value]="opcao.id">
+          {{ opcao.rua }}, {{ opcao.numero }}, {{ opcao.complemento }}, {{ opcao.bairro }}, {{ opcao.cidade }}
+        </option>
+      </select>
   </div>
   <br>
   <b>Ítens do Pedido</b><br>

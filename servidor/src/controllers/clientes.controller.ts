@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 
 import { AutenticacaoGuard } from '../guardas';
 import { ClientesService } from '../servicos';
@@ -11,6 +11,17 @@ export class ClientesController {
   @Get()
   async listarClientes() {
     return await this.clientes.consultarClientes();
+  }
+
+  @Get('opcoes')
+  async listarOpcoesClientes() {
+    return [{id: 1, nome: 'Joãozinho'}];
+  }
+
+  @Get('opcoes/endereco/:cliente')
+  async listarOpcoesEnderecoCliente(@Param('cliente') cliente: number) {
+    console.log('listarOpcoesEnderecoCliente', cliente)
+    return [{id: 1, rua: 'Rua ABC', numero: 123, complemento: '', bairro: 'Centro', cidade: 'Carazinho'} ];
   }
 
   @Post('salvar')

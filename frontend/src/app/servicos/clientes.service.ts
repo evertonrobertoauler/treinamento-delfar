@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
 export class ClientesService {
   clientes$ = new BehaviorSubject(null);
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) { }
 
   async consultarClientes() {
     return this.api.consultarApi<any[]>('GET', 'clientes');
@@ -19,5 +19,26 @@ export class ClientesService {
 
   async excluirClientes(id: number) {
     return await this.api.consultarApi('POST', 'clientes/excluir', { id });
+  }
+
+  async consultarOpcoesClientes() {
+    return this.api.consultarApi<{ id: number, nome: string }[]>('GET', 'clientes/opcoes');
+  }
+
+  async consultarOpcoesEnderecoCliente(cliente) {
+    if (!cliente) {
+      return [];
+    }
+
+    interface Opcao {
+      id: number;
+      rua: string;
+      numero: number;
+      complemento: string;
+      bairro: string;
+      cidade: string;
+    }
+
+    return this.api.consultarApi<Opcao[]>('GET', `clientes/opcoes/endereco/${cliente}`);
   }
 }
