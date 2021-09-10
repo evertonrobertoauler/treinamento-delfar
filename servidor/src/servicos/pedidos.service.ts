@@ -38,6 +38,7 @@ export class PedidosService {
     let pedido = new Pedido();
     pedido.id = dados.id || null;
     pedido.cliente = dados.cliente;
+    pedido.endereco = dados.endereco;
     pedido.valor = dados.valor;
     pedido = await this.bd.obterEntidade(Pedido).save(pedido);
 

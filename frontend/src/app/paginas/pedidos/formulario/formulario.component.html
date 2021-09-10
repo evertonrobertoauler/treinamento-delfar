@@ -1,6 +1,7 @@
 <form *ngIf="(dados$ | async) as d" [formGroup]="formulario" appFormulario (formSubmit)="salvar()">
   <div class="campo">
       <h2>Dados do Cliente</h2>
+      <div>
       <label>Cliente</label>
       <select formControlName="cliente" appCampoFormulario>
         <option value="">Selecione um cliente!</option>
@@ -8,6 +9,8 @@
           {{ opcao.nome }}
         </option>
       </select>
+    </div>
+    <div>
       <label>Endereço</label>
       <select formControlName="endereco" appCampoFormulario>
         <option value="">Selecione um endereco!</option>
@@ -15,6 +18,7 @@
           {{ opcao.rua }}, {{ opcao.numero }}, {{ opcao.complemento }}, {{ opcao.bairro }}, {{ opcao.cidade }}
         </option>
       </select>
+    </div>
   </div>
   <br>
   <b>Ítens do Pedido</b><br>

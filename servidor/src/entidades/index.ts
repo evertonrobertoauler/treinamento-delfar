@@ -63,8 +63,11 @@ export class Pedido {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('text')
-  cliente: string;
+  @Column('integer')
+  cliente: number;
+  
+  @Column('integer')
+  endereco: number;
   
   @Column({ type: 'numeric', precision: 10, scale: 2 })
   valor: string;

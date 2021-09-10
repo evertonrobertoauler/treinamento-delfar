@@ -5,7 +5,6 @@ import { BancoDadosService } from './banco-dados.service';
 @Injectable()
 export class ClientesService {
   constructor(private bd: BancoDadosService) {}
-
   async consultarClientes() {
     const sql = `
       WITH 
@@ -33,6 +32,7 @@ export class ClientesService {
     const resultado = await this.bd.executarConsulta(sql);
     return resultado?.length ? resultado[0]?.registros : [];
   }
+
 
   async salvarCliente(dados: any) {
     let cliente = new Cliente();
@@ -84,4 +84,20 @@ export class ClientesService {
     cliente.id = dados.id || null;
     return await this.bd.obterEntidade(Cliente).delete(cliente);
   }
+
+  async consultarOpcoesClientes() {
+    const sql = `
+      select id, nome from cliente
+    `;
+    const resultado = await this.bd.executarConsulta(sql);
+    return resultado;
+  }
+  async consultarOpcoesEnderecos(cliente: number) {
+    const sql = `
+      select * from endereco where "clienteId" = $1
+    `;
+    const resultado = await this.bd.executarConsulta(sql, [cliente]);
+    return resultado;
+  }
+
 }

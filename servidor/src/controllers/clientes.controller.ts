@@ -15,13 +15,13 @@ export class ClientesController {
 
   @Get('opcoes')
   async listarOpcoesClientes() {
-    return [{id: 1, nome: 'Joãozinho'}];
+    return await this.clientes.consultarOpcoesClientes();
   }
 
   @Get('opcoes/endereco/:cliente')
   async listarOpcoesEnderecoCliente(@Param('cliente') cliente: number) {
     console.log('listarOpcoesEnderecoCliente', cliente)
-    return [{id: 1, rua: 'Rua ABC', numero: 123, complemento: '', bairro: 'Centro', cidade: 'Carazinho'} ];
+    return await this.clientes.consultarOpcoesEnderecos(cliente);
   }
 
   @Post('salvar')
