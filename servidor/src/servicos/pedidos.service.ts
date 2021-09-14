@@ -20,8 +20,13 @@ export class PedidosService {
            GROUP BY 1
         ),
         with_pedidos AS (
-          SELECT pe.*, wip.itens
-            FROM pedido                  pe 
+          SELECT pe.*, wip.itens,
+                 cl.nome AS "nmCliente",
+                 (en.rua || ', ' || en.numero || ', ' || en.complemento || ', ' || 
+                  en.bairro || ', ' || en.cidade) AS "dsEndereco" 
+            FROM pedido                  pe
+            JOIN cliente                 cl ON cl.id = pe."clienteId"
+            JOIN endereco                en ON en.id = pe."enderecoId"
             JOIN with_itens_pedidos_json wip ON wip."pedidoId" = pe.id
            ORDER BY pe.id
         )

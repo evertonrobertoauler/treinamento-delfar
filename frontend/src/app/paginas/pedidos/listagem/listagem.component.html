@@ -2,7 +2,8 @@
   <h1 style="text-align:center">Pedidos Pendentes</h1>
   <div class="listagem-pedidos" >
     <a *ngFor="let pedido of d.pedidos" class="item" (click)="editarPedido(pedido)">
-      <b>Pedido Nº: {{ pedido.id }}</b>  <b style="margin-left: 40px;">Cliente: </b> {{ pedido.cliente }} <br><br>
+      <b>Pedido Nº: {{ pedido.id }}</b>  <b style="margin-left: 40px;">Cliente: </b> {{ pedido.nmCliente }} <br><br>
+      <b>Endereço:</b> {{ pedido.dsEndereco }} <br><br>
       <div *ngFor="let item of pedido.itens" class="item">
        <b style="margin-left: 25px;"> Item: </b> {{ item.nome }} <b style="margin-left: 5px;">Qtde:</b> {{ item.quantidade }} <br>  
        <b style="margin-left: 45px;">Valor Un: </b>{{ item.valor }} <b>Valor Total: </b> {{ item.total }} <br><br>

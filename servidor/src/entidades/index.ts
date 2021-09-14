@@ -63,10 +63,10 @@ export class Pedido {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('integer')
+  @ManyToOne(() => Cliente, (cliente) => cliente.id, { nullable: false })
   cliente: number;
   
-  @Column('integer')
+  @ManyToOne(() => Endereco, (endereco) => endereco.id, { nullable: false })
   endereco: number;
   
   @Column({ type: 'numeric', precision: 10, scale: 2 })
